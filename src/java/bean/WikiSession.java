@@ -5,7 +5,11 @@
  */
 package bean;
 
+import entities.User;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 /**
  *
@@ -14,6 +18,17 @@ import javax.ejb.Stateless;
 @Stateless
 public class WikiSession {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceUnit
+    EntityManagerFactory emf;
+       public boolean insertUser(User u) {
+        EntityManager em = emf.createEntityManager();
+        User exist = em.find(User.class, u.getNameUsu());
+        boolean ok = false;
+        if (exist == null) {
+            em.persist(u);
+            ok = true;
+        }
+        em.close();
+        return ok;
+    }
 }

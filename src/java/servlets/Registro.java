@@ -5,8 +5,11 @@
  */
 package servlets;
 
+import bean.WikiSession;
+import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-@WebServlet(name = "WikiServlet", urlPatterns = {"/WikiServlet"})
-public class WikiServlet extends HttpServlet {
+@WebServlet(name = "Registro", urlPatterns = {"/Registro"})
+public class Registro extends HttpServlet {
+@EJB WikiSession ejb;
 
+public static final String STATUS_OK = "Usuario dado de alta.";
+public static final String STATUS_ERROR = "Error al dar de alta.";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,18 +38,21 @@ public class WikiServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet WikiServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet WikiServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+       if("New".equals(request.getParameter("Registrar"))){
+           String nombre = request.getParameter("name");
+           String pass = request.getParameter("pass");
+           String email = request.getParameter("email");
+           String ciudad = request.getParameter("city");
+           User usuario = new User(nombre, pass, email);
+           usuario.setLocation(ciudad);
+           if(ejb.insertUser(usuario)){
+               request.setAttribute("status", STATUS_OK);
+           }else{
+              request.setAttribute("status", STATUS_ERROR);
+           }
+         request.getRequestDispatcher("/final.jsp").forward(request, response);
+           
+       }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
