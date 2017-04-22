@@ -32,7 +32,7 @@ public class WikiSession {
             Query email = em.createNamedQuery("User.findByEmail");
             email.setParameter("email", u.getEmail());
             List<User> listUser = email.getResultList();
-            if (listUser.size()==0) {
+            if (listUser.isEmpty()) {
                 em.persist(u);
                 ok = true;
             } 
