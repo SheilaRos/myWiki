@@ -15,11 +15,11 @@
         <h1>My Wiki</h1>
         <div>
             <div>
-                <form action="inicio.jsp"><input type="submit" name="Inicio"></form>
-                <form action="new.jsp"><input type="submit" name="Nueva entrada"></form>
-                <form action="perfil.jsp"><input type="submit" name="Perfil"></form>
-                <form action="libreria.jsp"><input type="submit" name="Mis codigos"></form>
-                <form action="likeCode.jsp"><input type="submit" name="Codigos que me gustan"></form>
+                <form action="inicio.jsp"><input type="submit" value="Inicio"></form>
+                <form action="new.jsp"><input type="submit" value="Nueva entrada"></form>
+                <form action="perfil.jsp"><input type="submit" value="Perfil"></form>
+                <form action="libreria.jsp"><input type="submit" value="Mis codigos"></form>
+                <form action="likeCode.jsp"><input type="submit" value="Codigos que me gustan"></form>
             </div>
             <div>
 

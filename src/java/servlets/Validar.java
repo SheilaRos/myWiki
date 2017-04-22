@@ -20,12 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-@WebServlet(name = "Registro", urlPatterns = {"/Registro"})
-public class Registro extends HttpServlet {
+@WebServlet(name = "Validar", urlPatterns = {"/Validar"})
+public class Validar extends HttpServlet {
 @EJB WikiSession ejb;
 
-public static final String STATUS_OK = "Usuario dado de alta.";
-public static final String STATUS_ERROR = "Error al dar de alta, el usuario o email ya existen.";
+public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,25 +36,22 @@ public static final String STATUS_ERROR = "Error al dar de alta, el usuario o em
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-       if("Registrar".equals(request.getParameter("Registrar"))){
-           System.out.println("entra en el registro");
-           String nombre = request.getParameter("name");
-           String pass = request.getParameter("pass");
-           String email = request.getParameter("email");
-           String ciudad = request.getParameter("city");
-           User usuario = new User(nombre, email, pass);
-           usuario.setLocation(ciudad);
-           if(ejb.insertUser(usuario)){
-               System.out.println("Inseta");
-               request.setAttribute("status", STATUS_OK);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            if("Login".equals(request.getParameter("Login"))){
+                String nombre = request.getParameter("usu");
+                String pass = request.getParameter("pass");
+                User user = new User(nombre);
+                user.setPass(pass);
+            if(ejb.validarUser(user) != null){
                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-           }else{
-              request.setAttribute("status", STATUS_ERROR);
-           }
-         request.getRequestDispatcher("/error.jsp").forward(request, response);
-           
-       }
+            }else{
+                request.setAttribute("status", STATUS_ERROR);
+                request.getRequestDispatcher("/error.jsp").forward(request, response);
+            }
+          }
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

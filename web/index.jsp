@@ -12,14 +12,20 @@
         <title>My Wiki</title>
     </head>
     <body>
-        <h1>Bienvenido a My Wiki</h1>
-        <form action="inicio.jsp">
-            <p>Usuario : <input type="text" required name="usu"></p>
-            <p>Password :<input type="password" required name="pass"></p>
-            <input type="submit" value="Entrar">
+        <header>
+            <h1>Bienvenido a My Wiki</h1>
+            <form action="Validar" method="POST">
+            <p>Usuario : <input type="text" required name="usu"></p><p>Password :<input type="password" required name="pass"></p>
+            <p><input type="submit" value="Login" name="Login"></p>
         </form>
-        <form action="registro.jsp">
-            <input type="submit" value="Registrate">
+        </header>
+        
+        <form action="Registro" method="POST">
+             <p>Nombre usuario : <input type="text" name="name"></p>
+            <p>Password : <input type="password" name="pass"></p>
+            <p>E-mail : <input type="text" name="email"></p>
+            <p>Ciudad : <input type="text" name="city"></p> 
+            <p><input type="submit" value="Registrar" name="Registrar"></p>
         </form>
     </body>
 </html>
