@@ -5,11 +5,8 @@
  */
 package servlets;
 
-import bean.WikiSession;
-import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-@WebServlet(name = "Validar", urlPatterns = {"/Validar"})
-public class Validar extends HttpServlet {
-@EJB WikiSession ejb;
+@WebServlet(name = "Profiles", urlPatterns = {"/Profiles"})
+public class Profiles extends HttpServlet {
 
-public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,22 +32,7 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-            if("Login".equals(request.getParameter("Login"))){
-                String nombre = request.getParameter("usu");
-                String pass = request.getParameter("pass");
-                User user = new User(nombre);
-                user.setPass(pass);
-            if(ejb.validarUser(user) != null){
-                request.getSession(true).setAttribute("user", nombre);
-                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-            }else{
-                request.setAttribute("status", STATUS_ERROR);
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
-            }
-          }
-            
-    
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

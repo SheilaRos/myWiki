@@ -15,16 +15,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static servlets.Validar.STATUS_ERROR;
 
 /**
  *
  * @author dam
  */
-@WebServlet(name = "Validar", urlPatterns = {"/Validar"})
-public class Validar extends HttpServlet {
+@WebServlet(name = "Perfil", urlPatterns = {"/Perfil"})
+public class Perfil extends HttpServlet {
 @EJB WikiSession ejb;
-
-public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
+    public static final String STATUS_ERROR = "Error al obtener los datos del usuario.";
+    public static final String STATUS_ERROR2 = "Error al modificar los datos.";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,22 +38,19 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-            if("Login".equals(request.getParameter("Login"))){
-                String nombre = request.getParameter("usu");
-                String pass = request.getParameter("pass");
-                User user = new User(nombre);
-                user.setPass(pass);
-            if(ejb.validarUser(user) != null){
-                request.getSession(true).setAttribute("user", nombre);
-                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+            if("Modificar".equals(request.getParameter("Modificar"))){
+                
             }else{
-                request.setAttribute("status", STATUS_ERROR);
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
+                String nombre = request.getParameter("user");
+                User usuario = ejb.obtenerUser(nombre);
+                if(usuario != null){
+                    request.setAttribute("usuario", usuario);
+                    request.getRequestDispatcher("/perfil.jsp").forward(request, response);
+                }else{
+                    request.setAttribute("status", STATUS_ERROR);
+                    request.getRequestDispatcher("/error.jsp").forward(request, response);
+                }
             }
-          }
-            
-    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

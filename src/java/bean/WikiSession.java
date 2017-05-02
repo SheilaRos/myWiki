@@ -53,5 +53,12 @@ public class WikiSession {
         return exist;
     }
     
+    public User obtenerUser(String nombreUsu){
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, nombreUsu);
+        em.close();
+        return user;
+    }
+    
     
 }
