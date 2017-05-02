@@ -9,9 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>WikiCode</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Codigos que me gustan</h1>
+        
+        <form action="inicio.jsp"><input type="submit" value="Inicio"></form>
+        
+        <div class="code"></div>
     </body>
 </html>
