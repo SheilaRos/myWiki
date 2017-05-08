@@ -4,6 +4,9 @@
     Author     : dam
 --%>
 
+<%@page import="java.util.Collection"%>
+<%@page import="entities.Entry"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +18,19 @@
         <h1>Codigos que me gustan</h1>
         
         <form action="inicio.jsp"><input type="submit" value="Inicio"></form>
-        
+        <% 
+        Collection<Entry>codes = (Collection<Entry>) request.getAttribute("entries");
+        if (codes.isEmpty() == false){
+        for (Entry entry : codes) {
+            %>
+        <%= entry.getLanguage() %>
+        <%= entry.getTitle() %>
+        <%= entry.getCode() %>
+        <% }
+        }else{
+            
+        }
+        %>
         <div class="code"></div>
     </body>
 </html>

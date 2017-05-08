@@ -5,7 +5,9 @@
  */
 package bean;
 
+import entities.Entry;
 import entities.User;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,5 +62,11 @@ public class WikiSession {
         return user;
     }
     
+    public Collection<Entry> selectLikeCodes(String nombreUsu){
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, nombreUsu);
+        Collection<Entry> col = user.getEntryCollection();
+        return col;
+    }
     
 }
