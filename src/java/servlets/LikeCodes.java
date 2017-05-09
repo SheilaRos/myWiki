@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package servlets;
-
 import bean.WikiSession;
 import entities.Entry;
+import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -37,7 +37,8 @@ public class LikeCodes extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombre = request.getParameter("user");
+        
+        String nombre = request.getParameter("nombre");
         Collection<Entry> entries = ejb.selectLikeCodes(nombre);
         request.setAttribute("entries", entries);
         request.getRequestDispatcher("/likeCode.jsp").forward(request, response);

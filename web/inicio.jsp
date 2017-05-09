@@ -24,7 +24,7 @@
                 <form action="new.jsp"><input type="submit" value="Nueva entrada"></form>
                 <form action="Perfil"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Perfil"></form>
                 <form action="libreria.jsp"><input type="submit" value="Mis codigos"></form>
-                <form action="likeCode.jsp"><input type="submit" value="Codigos que me gustan"></form>
+                <form action="LikeCodes"><input type="hidden" name="nombre" value="<%=user%>"><input type="submit" value="Codigos que me gustan"></form>
              <%
                  }
             else{

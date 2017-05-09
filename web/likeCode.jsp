@@ -23,14 +23,15 @@
         if (codes.isEmpty() == false){
         for (Entry entry : codes) {
             %>
+        <div class="code">
         <%= entry.getLanguage() %>
         <%= entry.getTitle() %>
         <%= entry.getCode() %>
+        </div>
         <% }
         }else{
             
         }
         %>
-        <div class="code"></div>
     </body>
 </html>
