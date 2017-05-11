@@ -6,7 +6,10 @@
 package bean;
 
 import entities.Entry;
+import entities.Follow;
+import entities.FollowPK;
 import entities.User;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -67,6 +70,25 @@ public class WikiSession {
         User user = em.find(User.class, nombreUsu);
         Collection<Entry> col = user.getEntryCollection();
         return col;
+    }
+    
+    public Collection<Follow> follow(User user1){
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, user1.getNameUsu());
+        Collection<Follow> follow = user.getFollowCollection();
+        return follow;
+    }
+    public Collection<Follow> followed(User user1){
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, user1.getNameUsu());
+        Collection <Follow> followed = new ArrayList<>();
+        Collection <Follow> allFollow = em.createNamedQuery("Follow.findAll").getResultList();
+        for(Follow f : allFollow){
+            if(f.getUser1().equals(user)){
+                followed.add(f);
+            }
+        }
+        return followed;
     }
     
 }
