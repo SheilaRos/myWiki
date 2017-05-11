@@ -22,7 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Registro", urlPatterns = {"/Registro"})
 public class Registro extends HttpServlet {
-@EJB WikiSession ejb;
+
+    @EJB WikiSession ejb;
 
 public static final String STATUS_OK = "Usuario dado de alta.";
 public static final String STATUS_ERROR = "Error al dar de alta, el usuario o email ya existen.";

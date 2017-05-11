@@ -12,10 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -51,7 +48,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "nameUsu")
     private String nameUsu;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo electrónico no válido")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -72,27 +69,18 @@ public class User implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "pass")
     private String pass;
-    @JoinTable(name = "voteEntry", joinColumns = {
-        @JoinColumn(name = "usu", referencedColumnName = "nameUsu")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_entry", referencedColumnName = "id")})
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
     private Collection<Entry> entryCollection;
-    @JoinTable(name = "voteAnswer", joinColumns = {
-        @JoinColumn(name = "usu", referencedColumnName = "nameUsu")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_answer", referencedColumnName = "id")})
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<VoteEntry> voteEntryCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
     private Collection<Answer> answerCollection;
-    @JoinTable(name = "follow", joinColumns = {
-        @JoinColumn(name = "usu_follow", referencedColumnName = "nameUsu")}, inverseJoinColumns = {
-        @JoinColumn(name = "usu_follower", referencedColumnName = "nameUsu")})
-    @ManyToMany
-    private Collection<User> userCollection;
-    @ManyToMany(mappedBy = "userCollection")
-    private Collection<User> userCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
-    private Collection<Entry> entryCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
-    private Collection<Answer> answerCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<VoteAnswer> voteAnswerCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Follow> followCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    private Collection<Follow> followCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
     private Collection<AnswerOfAnswer> answerOfAnswerCollection;
 
@@ -175,6 +163,15 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public Collection<VoteEntry> getVoteEntryCollection() {
+        return voteEntryCollection;
+    }
+
+    public void setVoteEntryCollection(Collection<VoteEntry> voteEntryCollection) {
+        this.voteEntryCollection = voteEntryCollection;
+    }
+
+    @XmlTransient
     public Collection<Answer> getAnswerCollection() {
         return answerCollection;
     }
@@ -184,39 +181,30 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Collection<VoteAnswer> getVoteAnswerCollection() {
+        return voteAnswerCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
-    @XmlTransient
-    public Collection<User> getUserCollection1() {
-        return userCollection1;
-    }
-
-    public void setUserCollection1(Collection<User> userCollection1) {
-        this.userCollection1 = userCollection1;
+    public void setVoteAnswerCollection(Collection<VoteAnswer> voteAnswerCollection) {
+        this.voteAnswerCollection = voteAnswerCollection;
     }
 
     @XmlTransient
-    public Collection<Entry> getEntryCollection1() {
-        return entryCollection1;
+    public Collection<Follow> getFollowCollection() {
+        return followCollection;
     }
 
-    public void setEntryCollection1(Collection<Entry> entryCollection1) {
-        this.entryCollection1 = entryCollection1;
+    public void setFollowCollection(Collection<Follow> followCollection) {
+        this.followCollection = followCollection;
     }
 
     @XmlTransient
-    public Collection<Answer> getAnswerCollection1() {
-        return answerCollection1;
+    public Collection<Follow> getFollowCollection1() {
+        return followCollection1;
     }
 
-    public void setAnswerCollection1(Collection<Answer> answerCollection1) {
-        this.answerCollection1 = answerCollection1;
+    public void setFollowCollection1(Collection<Follow> followCollection1) {
+        this.followCollection1 = followCollection1;
     }
 
     @XmlTransient

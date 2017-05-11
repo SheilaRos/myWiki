@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -51,14 +50,14 @@ public class Answer implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "text_answer")
     private String textAnswer;
-    @ManyToMany(mappedBy = "answerCollection")
-    private Collection<User> userCollection;
     @JoinColumn(name = "usu", referencedColumnName = "nameUsu")
     @ManyToOne(optional = false)
     private User usu;
     @JoinColumn(name = "id_entry", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Entry idEntry;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
+    private Collection<VoteAnswer> voteAnswerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnswer")
     private Collection<AnswerOfAnswer> answerOfAnswerCollection;
 
@@ -90,15 +89,6 @@ public class Answer implements Serializable {
         this.textAnswer = textAnswer;
     }
 
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
     public User getUsu() {
         return usu;
     }
@@ -113,6 +103,15 @@ public class Answer implements Serializable {
 
     public void setIdEntry(Entry idEntry) {
         this.idEntry = idEntry;
+    }
+
+    @XmlTransient
+    public Collection<VoteAnswer> getVoteAnswerCollection() {
+        return voteAnswerCollection;
+    }
+
+    public void setVoteAnswerCollection(Collection<VoteAnswer> voteAnswerCollection) {
+        this.voteAnswerCollection = voteAnswerCollection;
     }
 
     @XmlTransient

@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -63,11 +62,11 @@ public class Entry implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "code")
     private String code;
-    @ManyToMany(mappedBy = "entryCollection")
-    private Collection<User> userCollection;
     @JoinColumn(name = "usu", referencedColumnName = "nameUsu")
     @ManyToOne(optional = false)
     private User usu;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entry")
+    private Collection<VoteEntry> voteEntryCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEntry")
     private Collection<Answer> answerCollection;
 
@@ -117,21 +116,21 @@ public class Entry implements Serializable {
         this.code = code;
     }
 
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
     public User getUsu() {
         return usu;
     }
 
     public void setUsu(User usu) {
         this.usu = usu;
+    }
+
+    @XmlTransient
+    public Collection<VoteEntry> getVoteEntryCollection() {
+        return voteEntryCollection;
+    }
+
+    public void setVoteEntryCollection(Collection<VoteEntry> voteEntryCollection) {
+        this.voteEntryCollection = voteEntryCollection;
     }
 
     @XmlTransient

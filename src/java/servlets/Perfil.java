@@ -48,6 +48,7 @@ public class Perfil extends HttpServlet {
                     request.getRequestDispatcher("/perfil.jsp").forward(request, response);
                 }else{
                     request.setAttribute("status", STATUS_ERROR);
+                    
                     request.getRequestDispatcher("/error.jsp").forward(request, response);
                 }
             }
