@@ -55,12 +55,11 @@ public class UploadFile extends HttpServlet {
             upload.setSizeMax(maxFileSize);
             // construye la ruta del directorio para almacenar el archivo de carga
             // esta ruta es relativa al directorio de la aplicación
-            String path = getServletContext().getRealPath("") + File.separator + "files";
+            String path = getServletContext().getRealPath("") + File.separator + "Files";
+            System.out.println();
             // Crea el directorio si no existe
             File uploadDir = new File(path);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
+            
             try {
                 // analiza el contenido de la solicitud para extraer datos de archivo
                 List<FileItem> formItems = upload.parseRequest(request);
@@ -79,7 +78,7 @@ public class UploadFile extends HttpServlet {
                         }
                     }
                 }
-                request.getRequestDispatcher("/final.jsp").forward(request, response);
+                request.getRequestDispatcher("/libreria.jsp").forward(request, response);
             } catch (FileUploadException ex) {
                 Logger.getLogger(UploadFile.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
