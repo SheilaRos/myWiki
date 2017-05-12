@@ -36,9 +36,9 @@ public class LikeCodes extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        String nombre = request.getParameter("nombre");
+        response.setContentType("text/html;charset=UTF-8");        
+        String nombre = request.getParameter("user");
+        System.out.println(nombre);
         Collection<Entry> entries = ejb.selectLikeCodes(nombre);
         request.setAttribute("entries", entries);
         request.getRequestDispatcher("/likeCode.jsp").forward(request, response);

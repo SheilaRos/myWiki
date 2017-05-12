@@ -9,8 +9,12 @@
         <servlet-class>servlets.UploadFile</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Perfil</servlet-name>
-        <servlet-class>servlets.Perfil</servlet-class>
+        <servlet-name>UploadCode</servlet-name>
+        <servlet-class>servlets.UploadCode</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCode</servlet-name>
+        <servlet-class>servlets.ShowCode</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
@@ -21,8 +25,12 @@
         <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Perfil</servlet-name>
-        <url-pattern>/Perfil</url-pattern>
+        <servlet-name>UploadCode</servlet-name>
+        <url-pattern>/UploadCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCode</servlet-name>
+        <url-pattern>/ShowCode</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
