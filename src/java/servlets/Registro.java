@@ -47,9 +47,11 @@ public static final String STATUS_ERROR = "Error al dar de alta, el usuario o em
            User usuario = new User(nombre, email, pass);
            usuario.setLocation(ciudad);
            if(ejb.insertUser(usuario)){
+               User user = ejb.obtenerUser(nombre);
                request.setAttribute("status", STATUS_OK);
                request.getSession(true).setAttribute("user", nombre);
-                request.setAttribute("usuCompleto", usuario);
+                request.setAttribute("usuCompleto", user);
+                
                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
            }else{
               request.setAttribute("status", STATUS_ERROR);

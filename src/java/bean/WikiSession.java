@@ -57,6 +57,28 @@ public class WikiSession {
         em.close();
         return exist;
     }
+    public boolean modificarUsuario(User u){
+       EntityManager em = emf.createEntityManager();
+       User usu = em.find(User.class, u.getNameUsu());
+       boolean ok = false;
+       if(usu != null){
+           em.persist(u);
+           ok = true;
+       }
+       em.close();
+       return ok;
+   }
+    public Collection <User> allUsers(){
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("User.findAll").getResultList();
+    }
+    
+    public Collection <Entry> allEntry(){
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Entry.findAll").getResultList();
+    }
+    
+    
     
     public User obtenerUser(String nombreUsu){
         EntityManager em = emf.createEntityManager();
@@ -90,17 +112,21 @@ public class WikiSession {
         }
         return followed;
     }
-    public Collection<Entry> entry(User user){
+    public Collection<Entry> entryOfFollow(User user){
         EntityManager em = emf.createEntityManager();
         User u = em.find(User.class, user.getNameUsu());
         Collection<Follow> follow = follow(u);
         Collection<Entry> entry = new ArrayList<>();
         for(Follow f: follow){
             if(f.getFollowPK().getUsuFollower().equals(u.getName())){
-               // Collection <Entry> entry2 = em.find(entityClass, entry)
+               Query q = em.createQuery("Select e from Entry where e.usu =: nombreUsu");
+               q.setParameter("nombreUsu", user);
+               Collection<Entry> entry2 = q.getResultList();
+               for(Entry en : entry2){
+                   entry.add(en);
+               }
             }
-        }
-        
+        }  
         return entry;
     }
     

@@ -8,6 +8,10 @@
         <servlet-name>UploadFile</servlet-name>
         <servlet-class>servlets.UploadFile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Perfil</servlet-name>
+        <servlet-class>servlets.Perfil</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>UploadFile</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Perfil</servlet-name>
+        <url-pattern>/Perfil</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
