@@ -90,5 +90,18 @@ public class WikiSession {
         }
         return followed;
     }
+    public Collection<Entry> entry(User user){
+        EntityManager em = emf.createEntityManager();
+        User u = em.find(User.class, user.getNameUsu());
+        Collection<Follow> follow = follow(u);
+        Collection<Entry> entry = new ArrayList<>();
+        for(Follow f: follow){
+            if(f.getFollowPK().getUsuFollower().equals(u.getName())){
+               // Collection <Entry> entry2 = em.find(entityClass, entry)
+            }
+        }
+        
+        return entry;
+    }
     
 }

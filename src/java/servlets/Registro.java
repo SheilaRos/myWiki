@@ -40,7 +40,6 @@ public static final String STATUS_ERROR = "Error al dar de alta, el usuario o em
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
        if("Registrar".equals(request.getParameter("Registrar"))){
-           System.out.println("entra en el registro");
            String nombre = request.getParameter("name");
            String pass = request.getParameter("pass");
            String email = request.getParameter("email");
@@ -48,8 +47,9 @@ public static final String STATUS_ERROR = "Error al dar de alta, el usuario o em
            User usuario = new User(nombre, email, pass);
            usuario.setLocation(ciudad);
            if(ejb.insertUser(usuario)){
-               System.out.println("Inserta");
                request.setAttribute("status", STATUS_OK);
+               request.getSession(true).setAttribute("user", nombre);
+                request.setAttribute("usuCompleto", usuario);
                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
            }else{
               request.setAttribute("status", STATUS_ERROR);

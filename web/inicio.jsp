@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : perfil
     Created on : 27-mar-2017, 19:13:47
     Author     : dam
@@ -46,7 +46,7 @@
                     
                  }
             else{
-                   request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+                   request.getRequestDispatcher("/index.jsp").forward(request, response);
                 }
              %>    
             </div>

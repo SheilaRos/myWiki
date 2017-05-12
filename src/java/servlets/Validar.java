@@ -37,7 +37,6 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
             if("Login".equals(request.getParameter("Login"))){
                 String nombre = request.getParameter("usu");
                 String pass = request.getParameter("pass");
