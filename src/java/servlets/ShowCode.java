@@ -5,27 +5,19 @@
  */
 package servlets;
 
-import bean.WikiSession;
-import entities.Entry;
-import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static servlets.Registro.STATUS_ERROR;
-import static servlets.Registro.STATUS_OK;
 
 /**
  *
  * @author dam
  */
-@WebServlet(name = "UploadCode", urlPatterns = {"/UploadCode"})
-public class UploadCode extends HttpServlet {
-@EJB WikiSession ejb;
+public class ShowCode extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,25 +30,18 @@ public class UploadCode extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-           String code = request.getParameter("Code");
-           Entry entry = new Entry();
-           entry.setCode(code);
-           String nombre = request.getParameter("user");
-           User usuario = ejb.obtenerUser(nombre);
-           entry.setUsu(usuario);
-           entry.setTitle(request.getParameter("Title"));            
-           entry.setLanguage(request.getParameter("Lenguage"));
-           System.out.println(entry);
-           if(ejb.insertCode(entry)){
-               System.out.println("funca");
-               request.setAttribute("status", STATUS_OK);
-               request.getSession(true).setAttribute("user", nombre);
-               request.setAttribute("usuCompleto", usuario);
-               request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-           }else{
-              request.setAttribute("status", STATUS_ERROR);
-              request.getRequestDispatcher("/error.jsp").forward(request, response);
-           }  
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ShowCode</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ShowCode at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

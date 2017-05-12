@@ -69,6 +69,7 @@ public class WikiSession {
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, nombreUsu);
         Collection<Entry> col = user.getEntryCollection();
+        em.close();
         return col;
     }
     
@@ -103,5 +104,16 @@ public class WikiSession {
         
         return entry;
     }
-    
+    public boolean insertCode(Entry e) {
+            EntityManager em = emf.createEntityManager();
+            em.persist(e);
+            em.close();
+            return true;
+    }
+    public Entry selectCode(String nombreUsu){
+        EntityManager em = emf.createEntityManager();
+        Entry entry = em.find(Entry.class, nombreUsu);        
+        em.close();
+        return entry;
+    }
 }
