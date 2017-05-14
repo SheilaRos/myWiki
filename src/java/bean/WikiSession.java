@@ -5,6 +5,7 @@
  */
 package bean;
 
+import entities.Answer;
 import entities.Entry;
 import entities.Follow;
 import entities.FollowPK;
@@ -78,8 +79,16 @@ public class WikiSession {
         return em.createNamedQuery("Entry.findAll").getResultList();
     }
     
-    
-    
+    public Entry selectEntry(int id){
+        EntityManager em = emf.createEntityManager();
+        Entry entry = em.find(Entry.class, id);
+        em.close();
+        return entry;
+    }
+    public Collection <Answer> selectAnswer(int id){
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Select a from Answer where a.id_entry = "+id+"").getResultList();
+    }
     public User obtenerUser(String nombreUsu){
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, nombreUsu);
@@ -87,14 +96,17 @@ public class WikiSession {
         return user;
     }
     
-    public Collection<Entry> selectLikeCodes(String nombreUsu){
+    public Collection<Entry> selectUserCodes(String nombreUsu){
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, nombreUsu);
         Collection<Entry> col = user.getEntryCollection();
         em.close();
         return col;
     }
-    
+    public Collection<Entry> selectLikeCodes(String nombreUsu){
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Select e from Entry e where e.id in (Select a.id_entry from (clase likes entry) a where a.usu = '" + nombreUsu + "')").getResultList();
+    }
     public Collection<Follow> follow(User user1){
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, user1.getNameUsu());
@@ -116,10 +128,12 @@ public class WikiSession {
     public Collection<Entry> entryOfFollow(User user){
         EntityManager em = emf.createEntityManager();
         User u = em.find(User.class, user.getNameUsu());
+        
         Collection<Follow> follow = follow(u);
         Collection<Entry> entry = new ArrayList<>();
         for(Follow f: follow){
-            if(f.getFollowPK().getUsuFollower().equals(u.getName())){
+            if(f.getFollowPK().getUsuFollow().equals(u.getName())){
+                System.out.println(f.getFollowPK().getUsuFollower());
                Query q = em.createQuery("Select e from Entry where e.usu =: nombreUsu");
                q.setParameter("nombreUsu", user);
                Collection<Entry> entry2 = q.getResultList();

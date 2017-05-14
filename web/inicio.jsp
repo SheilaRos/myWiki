@@ -30,9 +30,9 @@
             %>
             
                 <form action="inicio.jsp"><input type="submit" value="Inicio"></form>
-                <form action="new.jsp"><input type="submit" value="Nueva entrada"></form>
                 <form action="Perfil"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Perfil"></form>
-                <form action="libreria.jsp"><input type="submit" value="Mis codigos"></form>
+                <form action="libreria.jsp"><input type="submit" value="Subir codigos"></form>
+                <form action="AllCodes"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
                 <form action="LikeCodes"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
                 <form action="logOut"><input type="submit" value="Log Out"></form>
                 <h1>Siguiendo</h1>
@@ -54,7 +54,7 @@
                  if(!followed.isEmpty()){
                     for(Follow f2 : followed){
                   %>
-                 <form action="Profiles" method="GET"><input type="submit" name="otroUsuario" value="<%=f2.getUser1()%>"></form>
+                 <form action="Profiles" method="GET"><input type="submit" name="otroUsuario" value="<%=f2.getUser()%>"></form>
                 <%
                     }
                   }else{
