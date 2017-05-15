@@ -10,6 +10,8 @@ import entities.Entry;
 import entities.Follow;
 import entities.FollowPK;
 import entities.User;
+import entities.VoteEntry;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -101,9 +103,36 @@ public class WikiSession {
         em.close();
         return entry;
     }
-    public Collection <Answer> selectAnswer(int id){
+    public List <Answer> selectAnswer(Entry entry){
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Select a from Answer where a.id_entry = "+id+"").getResultList();
+        Query q = em.createQuery("Select a from Answer a where a.idEntry = :entry");
+        q.setParameter("entry", entry);
+        return q.getResultList();
+    }
+    
+    public boolean insertarVote(VoteEntry v) {
+        if (!existeVote(v)) {
+            EntityManager em = emf.createEntityManager();
+            em.persist(v);
+            em.close();
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean existeVote(VoteEntry v) {
+        return (emf.createEntityManager().find(VoteEntry.class, v.getVoteEntryPK())) != null;
+    }
+    public boolean deleteVote (VoteEntry v){
+        EntityManager em = emf.createEntityManager();
+        VoteEntry vote = em.find(VoteEntry.class, v.getVoteEntryPK());
+        boolean ok = false;
+        if (vote != null) {
+            em.remove(vote);
+            ok = true;
+        } 
+        em.close();
+        return ok;
     }
     public User obtenerUser(String nombreUsu){
         EntityManager em = emf.createEntityManager();

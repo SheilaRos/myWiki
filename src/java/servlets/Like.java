@@ -6,9 +6,7 @@
 package servlets;
 
 import bean.WikiSession;
-import entities.Answer;
 import entities.Entry;
-import entities.User;
 import entities.VoteEntry;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-public class ShowCode extends HttpServlet {
+public class Like extends HttpServlet {
 @EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,21 +35,13 @@ public class ShowCode extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String asd = request.getParameter("id");
-        System.out.println(asd);
-        String nombre = request.getParameter("user");
-        User usuario = ejb.obtenerUser(nombre);
-        int id = Integer.parseInt(asd);        
-        Entry entry = ejb.selectEntry(id);
-        Collection <Answer> answers = ejb.selectAnswer(entry);
-        VoteEntry voteEntry = new VoteEntry();
-        voteEntry.setEntry(entry);
-        voteEntry.setUser(usuario);
-        boolean existeVote = ejb.existeVote(voteEntry);
-        request.setAttribute("vote", existeVote);
-        request.setAttribute("entry", entry);
-        request.setAttribute("answers", answers);
-        request.getRequestDispatcher("/codeProfile.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String nombre = request.getParameter("user");
+        Collection<Entry> entries = ejb.allEntry();
+        request.setAttribute("entries", entries);
+        request.getRequestDispatcher("/AllCodes.jsp").forward(request, response);        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
