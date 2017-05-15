@@ -16,6 +16,10 @@
         <servlet-name>ShowCode</servlet-name>
         <servlet-class>servlets.ShowCode</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AllCodes</servlet-name>
+        <servlet-class>servlets.AllCodes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ShowCode</servlet-name>
         <url-pattern>/ShowCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllCodes</servlet-name>
+        <url-pattern>/AllCodes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
