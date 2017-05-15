@@ -6,9 +6,11 @@
 package servlets;
 
 import bean.WikiSession;
+import entities.Follow;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,11 +46,12 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
                 user.setPass(pass);
             if(ejb.validarUser(user) != null){
                 user = ejb.obtenerUser(nombre);
+                List <Follow> follow = (List) ejb.follow(user);
                 request.getSession(true).setAttribute("user", nombre);
                 request.setAttribute("usuCompleto", user);
-                request.setAttribute("follow", ejb.follow(user));
+                request.setAttribute("follow", follow);
                 request.setAttribute("followed", ejb.followed(user));
-                request.setAttribute("entry", ejb.entryOfFollow(user));
+                request.setAttribute("entry", ejb.entryOfFollow(follow));
                 request.getRequestDispatcher("/inicio.jsp").forward(request, response);
             }else{
                 request.setAttribute("status", STATUS_ERROR);

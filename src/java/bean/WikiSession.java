@@ -125,22 +125,14 @@ public class WikiSession {
         }
         return followed;
     }
-    public Collection<Entry> entryOfFollow(User user){
+    public Collection<Entry> entryOfFollow(List<Follow> foll){
         EntityManager em = emf.createEntityManager();
-        User u = em.find(User.class, user.getNameUsu());
-        
-        Collection<Follow> follow = follow(u);
         Collection<Entry> entry = new ArrayList<>();
-        for(Follow f: follow){
-            if(f.getFollowPK().getUsuFollow().equals(u.getName())){
-                System.out.println(f.getFollowPK().getUsuFollower());
-               Query q = em.createQuery("Select e from Entry where e.usu =: nombreUsu");
-               q.setParameter("nombreUsu", user);
-               Collection<Entry> entry2 = q.getResultList();
-               for(Entry en : entry2){
-                   entry.add(en);
-               }
-            }
+        for(Follow f: foll){
+           Collection<Entry> en = selectUserCodes(f.getUser1().getNameUsu());
+           for(Entry e : en){
+               entry.add(e);
+           }
         }  
         return entry;
     }
