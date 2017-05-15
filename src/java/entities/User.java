@@ -205,7 +205,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.User[ nameUsu=" + nameUsu + " ]";
+        return nameUsu;
     }
     
 }

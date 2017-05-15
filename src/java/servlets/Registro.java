@@ -6,9 +6,11 @@
 package servlets;
 
 import bean.WikiSession;
+import entities.Follow;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,12 +49,20 @@ public static final String STATUS_ERROR = "Error al dar de alta, el usuario o em
            User usuario = new User(nombre, email, pass);
            usuario.setLocation(ciudad);
            if(ejb.insertUser(usuario)){
-               System.out.println("funciona");
-               User user = ejb.obtenerUser(nombre);
-               request.setAttribute("status", STATUS_OK);
-               request.getSession(true).setAttribute("user", nombre);
-                request.setAttribute("usuCompleto", user);
-               request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+               User validarUsu = ejb.obtenerUser(nombre);
+               if(validarUsu != null){
+                 System.out.println(validarUsu);
+                 request.setAttribute("status", STATUS_OK);
+                 List <Follow> follow = (List) ejb.follow(validarUsu);
+                 request.getSession(true).setAttribute("user", nombre);
+                 request.setAttribute("usuCompleto", validarUsu);
+                  request.setAttribute("follow", ejb.follow(validarUsu));
+                request.setAttribute("followed", ejb.followed(validarUsu));
+                request.setAttribute("entry", ejb.entryOfFollow(follow));
+                 request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+               }else{
+                   request.getRequestDispatcher("/index.jsp").forward(request, response);
+               }
            }else{
               request.setAttribute("status", STATUS_ERROR);
               request.getRequestDispatcher("/error.jsp").forward(request, response);
