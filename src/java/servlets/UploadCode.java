@@ -7,9 +7,11 @@ package servlets;
 
 import bean.WikiSession;
 import entities.Entry;
+import entities.Follow;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,10 +53,11 @@ public class UploadCode extends HttpServlet {
                System.out.println("funca");
                request.setAttribute("status", STATUS_OK);
                request.getSession(true).setAttribute("user", nombre);
+               List <Follow> follow = (List) ejb.follow(usuario);
                request.setAttribute("usuCompleto", usuario);
-               request.setAttribute("follow", ejb.follow(usuario));
+               request.setAttribute("follow", follow);
                 request.setAttribute("followed", ejb.followed(usuario));
-                request.setAttribute("entry", ejb.entryOfFollow(usuario));
+                request.setAttribute("entry", ejb.entryOfFollow(follow));
                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
            }else{
               request.setAttribute("status", STATUS_ERROR);
