@@ -52,6 +52,9 @@ public class UploadCode extends HttpServlet {
                request.setAttribute("status", STATUS_OK);
                request.getSession(true).setAttribute("user", nombre);
                request.setAttribute("usuCompleto", usuario);
+               request.setAttribute("follow", ejb.follow(usuario));
+                request.setAttribute("followed", ejb.followed(usuario));
+                request.setAttribute("entry", ejb.entryOfFollow(usuario));
                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
            }else{
               request.setAttribute("status", STATUS_ERROR);

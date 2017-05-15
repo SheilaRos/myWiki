@@ -24,7 +24,7 @@
             <table border="1">
                 <tr><td>Lenguage</td><td><%= entry.getLanguage() %></td></tr>
                 <tr><td>Autor</td><td><form action="Perfil"><input type="submit" name="otroUsuario" value="<%= entry.getUsu() %>"/></form></td></tr>
-                <tr><td>Titulo</td><td><form action="ShowCode"><input type="hidden" value="<%= entry.getId() %>" /><input type="submit" value="<%= entry.getTitle() %>"/></form></td></tr>
+                <tr><td>Titulo</td><td><form action="ShowCode"><input type="hidden" name="id" value="<%= entry.getId() %>" /><input type="submit" value="<%= entry.getTitle() %>"/></form></td></tr>
                 <tr><td>Codigo</td><td><%= entry.getCode() %></td></tr>
             </table>
             </br>
