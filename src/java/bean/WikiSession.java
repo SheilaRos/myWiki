@@ -63,12 +63,28 @@ public class WikiSession {
        User usu = em.find(User.class, u.getNameUsu());
        boolean ok = false;
        if(usu != null){
-           em.persist(u);
+           usu.setBio(u.getBio());
+           usu.setEmail(u.getEmail());
+           usu.setName(u.getName());
+           usu.setLocation(u.getLocation());
+           em.persist(usu);
            ok = true;
        }
        em.close();
        return ok;
    }
+    public boolean modificaPass(User u){
+        EntityManager em = emf.createEntityManager();
+       User usu = em.find(User.class, u.getNameUsu());
+       boolean ok = false;
+       if(usu != null){
+           usu.setPass(u.getPass());
+           em.persist(usu);
+           ok = true;
+       }
+       em.close();
+       return ok;
+    }
     public Collection <User> allUsers(){
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("User.findAll").getResultList();

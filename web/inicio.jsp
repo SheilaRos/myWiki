@@ -22,25 +22,48 @@
             <div>
             <%
                 String user = (String) session.getAttribute("user");
+                boolean dis = false;
                 User usu = (User) request.getAttribute("usuCompleto");
                 List <Follow> follow = (List<Follow>) request.getAttribute("follow");
                 List <Follow> followed = (List<Follow>) request.getAttribute("followed");
                 List <Entry> entry = (List<Entry>) request.getAttribute("entry");
                 if (user != null && usu != null){
+                    if(!user.equals(usu.getNameUsu())){
+                        for(Follow f1 : followed){
+                            if(f1.getUser().getNameUsu().equals(user)){
+                                dis = true;
+                                %>
+                                <form action="Follow" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
+                                    <input type="hidden" name="usuarioUF" value="<%=user%>"><input type="submit" value="Unfollow" name="Unfollow"></form>
+                                <%
+                            }
+                        }
+                         if (!dis){
+                         %>
+                            <form action="Follow" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
+                            <input type="hidden" name="usuarioUF" value="<%=user%>"><input type="submit" value="Follow" name="Follow"></form>
+                            <%
+                        }   
+                    }
             %>
             
-                <form action="inicio.jsp"><input type="submit" value="Inicio"></form>
-                <form action="Perfil"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Perfil"></form>
-                <form action="libreria.jsp"><input type="submit" value="Subir codigos"></form>
-                <form action="AllCodes"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
-                <form action="LikeCodes"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
-                <form action="logOut"><input type="submit" value="Log Out"></form>
+            <form action="Inicio" method="POST"><input type="hidden" name="usu" value="<%=user%>"><input type="submit" value="Inicio"></form>
+            <form action="AllUsers" method="POST"><input type="hidden" name="user" value="<%=user%>"><input type="submit" value="All users"></form>
+            <form action="Perfil" method="POST"><input type="hidden" name="user" value="<%=user%>"><input type="submit" value="Perfil"></form>
+            <form action="libreria.jsp" method="POST"><input type="submit" value="Subir codigos"></form>
+            <form action="AllCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
+            <form action="LikeCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
+                <form action="logOut" method="POST"><input type="submit" value="Log Out"></form>
                 <h1>Siguiendo</h1>
                 <% 
                 if(!follow.isEmpty()){
                     for(Follow f : follow){
                     %>
-                        <form action="Profiles" method="GET"><input type="submit" name="otroUsuario" value="<%=f.getUser1()%>"></form>
+                        <form action="Profiles" method="POST">
+                            <input type="hidden" name="usu" value="<%=user%>">
+                            <input type="hidden" name="otroUsuario" value="<%=f.getUser1().getNameUsu()%>">
+                            <input type="submit" name="<%=f.getUser1().getNameUsu()%>" value="<%=f.getUser1().getNameUsu()%>">
+                        </form>
                     <%
                     }
                 }else{
@@ -54,7 +77,7 @@
                  if(!followed.isEmpty()){
                     for(Follow f2 : followed){
                   %>
-                 <form action="Profiles" method="GET"><input type="submit" name="otroUsuario" value="<%=f2.getUser()%>"></form>
+                  <form action="Profiles" method="POST"><input type="hidden" name="usu" value="<%=user%>"><input type="submit" name="otroUsuario" value="<%=f2.getUser().getNameUsu()%>"></form>
                 <%
                     }
                   }else{
@@ -68,7 +91,7 @@
                  if(!entry.isEmpty()){
                     for(Entry e : entry){
                     %>
-                    <form action="Entry" method="POST"><input type="submit" name="unaEntry" value="<%=e.getTitle()%>"></form>
+                    <form action="Entry" method="POST"><input type="hidden" name="usu" value="<%=user%>"><input type="submit" name="unaEntry" value="<%=e.getTitle()%>"></form>
                     <p><%=e.getLanguage()%></p>
                     <p><%=e.getCode()%></p>
                     <%  

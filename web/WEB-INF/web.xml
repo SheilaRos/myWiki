@@ -20,6 +20,22 @@
         <servlet-name>AllCodes</servlet-name>
         <servlet-class>servlets.AllCodes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Inicio</servlet-name>
+        <servlet-class>servlets.Inicio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Modificar</servlet-name>
+        <servlet-class>servlets.Modificar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarPass</servlet-name>
+        <servlet-class>servlets.ModificarPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllUsers</servlet-name>
+        <servlet-class>servlets.AllUsers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -39,6 +55,22 @@
     <servlet-mapping>
         <servlet-name>AllCodes</servlet-name>
         <url-pattern>/AllCodes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Inicio</servlet-name>
+        <url-pattern>/Inicio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Modificar</servlet-name>
+        <url-pattern>/Modificar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarPass</servlet-name>
+        <url-pattern>/ModificarPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllUsers</servlet-name>
+        <url-pattern>/AllUsers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
