@@ -53,6 +53,7 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
                 request.setAttribute("followed", ejb.followed(user));
                 request.setAttribute("entry", ejb.entryOfFollow(follow));
                 request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+                
             }else{
                 request.setAttribute("status", STATUS_ERROR);
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
