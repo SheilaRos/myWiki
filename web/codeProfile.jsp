@@ -4,6 +4,7 @@
     Author     : Gulir
 --%>
 
+<%@page import="entities.VoteEntry"%>
 <%@page import="entities.Entry"%>
 <%@page import="entities.Answer"%>
 <%@page import="java.util.Collection"%>
@@ -16,18 +17,24 @@
     </head>
     <body>
         <% 
+        String user = (String) session.getAttribute("user");
         Entry entry = (Entry) request.getAttribute("entry");
         Collection<Answer>answers = (Collection<Answer>) request.getAttribute("answers");
+        boolean existeVote = (boolean) request.getAttribute("vote");
             %>
         <div class="code">
             <table border="1">
                 <tr><td>Lenguage</td><td><%= entry.getLanguage() %></td></tr>
-                <tr><td>Autor</td><td><form action="Perfil"><input type="submit" name="otroUsuario" value="<%= entry.getUsu() %>"/></form></td></tr>
-                <tr><td>Titulo</td><td><form action="ShowCode"><input type="hidden" value="<%= entry.getId() %>" /><input type="submit" value="<%= entry.getTitle() %>"/></form></td></tr>
+                <tr><td>Autor</td><td><%= entry.getUsu() %></td></tr>
+                <tr><td>Titulo</td><td><%= entry.getTitle() %></td></tr>
                 <tr><td>Codigo</td><td><%= entry.getCode() %></td></tr>
             </table>
             </br>
-            <% for(Answer ans : answers){ %>
+            <% if(existeVote){ %>
+                <form action="Dislike"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Dislike"></form>
+            <% }else{ %>
+                <form action="Like"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Like"></form>
+            <% }for(Answer ans : answers){ %>
             <table border="1">
                 <tr><td>Usuario</td><td><%= ans.getUsu() %></td></tr>
                 <tr><td>Respuesta</td><td><%= ans.getTextAnswer() %></td></tr>

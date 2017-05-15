@@ -20,6 +20,14 @@
         <servlet-name>AllCodes</servlet-name>
         <servlet-class>servlets.AllCodes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Like</servlet-name>
+        <servlet-class>servlets.Like</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dislike</servlet-name>
+        <servlet-class>servlets.Dislike</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>AllCodes</servlet-name>
         <url-pattern>/AllCodes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Like</servlet-name>
+        <url-pattern>/Like</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dislike</servlet-name>
+        <url-pattern>/Dislike</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
