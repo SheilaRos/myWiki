@@ -5,8 +5,11 @@
  */
 package servlets;
 
+import bean.WikiSession;
+import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Profiles", urlPatterns = {"/Profiles"})
 public class Profiles extends HttpServlet {
-
+ @EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,7 +34,14 @@ public class Profiles extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        String nombreOtroUsuario = (String) request.getAttribute("otroUsuario");
+        User usu = ejb.obtenerUser(nombreOtroUsuario);
+        if(usu != null){
+             request.setAttribute("usuCompleto", usu);
+             request.getRequestDispatcher("/perfil.jsp").forward(request, response);
+        }else{
+            
+        }
         
     }
 

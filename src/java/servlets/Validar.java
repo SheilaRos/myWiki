@@ -43,8 +43,12 @@ public static final String STATUS_ERROR = "Usuario o contraseña erronea.";
                 User user = new User(nombre);
                 user.setPass(pass);
             if(ejb.validarUser(user) != null){
+                user = ejb.obtenerUser(nombre);
                 request.getSession(true).setAttribute("user", nombre);
                 request.setAttribute("usuCompleto", user);
+                request.setAttribute("follow", ejb.follow(user));
+                request.setAttribute("followed", ejb.followed(user));
+                request.setAttribute("entry", ejb.entryOfFollow(user));
                 request.getRequestDispatcher("/inicio.jsp").forward(request, response);
             }else{
                 request.setAttribute("status", STATUS_ERROR);

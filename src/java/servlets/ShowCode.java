@@ -5,8 +5,13 @@
  */
 package servlets;
 
+import bean.WikiSession;
+import entities.Answer;
+import entities.Entry;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author dam
  */
 public class ShowCode extends HttpServlet {
-
+@EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,18 +35,12 @@ public class ShowCode extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ShowCode</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ShowCode at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int id = Integer.parseInt(request.getParameter("id"));
+        Entry entry = ejb.selectEntry(id);
+        Collection <Answer> answers = ejb.selectAnswer(id);
+        request.setAttribute("entry", entry);
+        request.setAttribute("answers", answers);
+        request.getRequestDispatcher("/codeProfile.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,9 +1,8 @@
 <%-- 
-    Document   : likeCode
-    Created on : 28-mar-2017, 17:33:54
-    Author     : dam
+    Document   : AllCodes
+    Created on : 14-may-2017, 19:33:00
+    Author     : Gulir
 --%>
-
 <%@page import="java.util.Collection"%>
 <%@page import="entities.Entry"%>
 <%@page import="java.util.List"%>
@@ -12,10 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WikiCode</title>
+        <title>All Codes</title>
     </head>
     <body>
-        <h1>Codigos que me gustan</h1>        
+        <h1>All Codes</h1>        
         <% 
         Collection<Entry>codes = (Collection<Entry>) request.getAttribute("entries");
         if (codes.isEmpty() == false){
@@ -25,7 +24,7 @@
             <table border="1">
                 <tr><td>Lenguage</td><td><%= entry.getLanguage() %></td></tr>
                 <tr><td>Autor</td><td><form action="Perfil"><input type="submit" name="otroUsuario" value="<%= entry.getUsu() %>"/></form></td></tr>
-                <tr><td>Titulo</td><td><form action="ShowCode"><input type="hidden" name="id" value="<%= entry.getId() %>" /><input type="submit" value="<%= entry.getTitle() %>"/></form></td></tr>
+                <tr><td>Titulo</td><td><form action="ShowCode"><input type="hidden" value="<%= entry.getId() %>" /><input type="submit" value="<%= entry.getTitle() %>"/></form></td></tr>
                 <tr><td>Codigo</td><td><%= entry.getCode() %></td></tr>
             </table>
             </br>
