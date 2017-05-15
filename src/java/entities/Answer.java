@@ -6,9 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +17,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -56,10 +52,6 @@ public class Answer implements Serializable {
     @JoinColumn(name = "id_entry", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Entry idEntry;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
-    private Collection<VoteAnswer> voteAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnswer")
-    private Collection<AnswerOfAnswer> answerOfAnswerCollection;
 
     public Answer() {
     }
@@ -103,24 +95,6 @@ public class Answer implements Serializable {
 
     public void setIdEntry(Entry idEntry) {
         this.idEntry = idEntry;
-    }
-
-    @XmlTransient
-    public Collection<VoteAnswer> getVoteAnswerCollection() {
-        return voteAnswerCollection;
-    }
-
-    public void setVoteAnswerCollection(Collection<VoteAnswer> voteAnswerCollection) {
-        this.voteAnswerCollection = voteAnswerCollection;
-    }
-
-    @XmlTransient
-    public Collection<AnswerOfAnswer> getAnswerOfAnswerCollection() {
-        return answerOfAnswerCollection;
-    }
-
-    public void setAnswerOfAnswerCollection(Collection<AnswerOfAnswer> answerOfAnswerCollection) {
-        this.answerOfAnswerCollection = answerOfAnswerCollection;
     }
 
     @Override

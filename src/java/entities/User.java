@@ -61,9 +61,6 @@ public class User implements Serializable {
     @Size(max = 65535)
     @Column(name = "bio")
     private String bio;
-    @Lob
-    @Column(name = "profilePicture")
-    private byte[] profilePicture;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -76,13 +73,9 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
     private Collection<Answer> answerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<VoteAnswer> voteAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Follow> followCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Follow> followCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usu")
-    private Collection<AnswerOfAnswer> answerOfAnswerCollection;
 
     public User() {
     }
@@ -137,14 +130,6 @@ public class User implements Serializable {
         this.bio = bio;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public String getPass() {
         return pass;
     }
@@ -181,15 +166,6 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<VoteAnswer> getVoteAnswerCollection() {
-        return voteAnswerCollection;
-    }
-
-    public void setVoteAnswerCollection(Collection<VoteAnswer> voteAnswerCollection) {
-        this.voteAnswerCollection = voteAnswerCollection;
-    }
-
-    @XmlTransient
     public Collection<Follow> getFollowCollection() {
         return followCollection;
     }
@@ -205,15 +181,6 @@ public class User implements Serializable {
 
     public void setFollowCollection1(Collection<Follow> followCollection1) {
         this.followCollection1 = followCollection1;
-    }
-
-    @XmlTransient
-    public Collection<AnswerOfAnswer> getAnswerOfAnswerCollection() {
-        return answerOfAnswerCollection;
-    }
-
-    public void setAnswerOfAnswerCollection(Collection<AnswerOfAnswer> answerOfAnswerCollection) {
-        this.answerOfAnswerCollection = answerOfAnswerCollection;
     }
 
     @Override
@@ -238,7 +205,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return  nameUsu;
+        return "entities.User[ nameUsu=" + nameUsu + " ]";
     }
     
 }
