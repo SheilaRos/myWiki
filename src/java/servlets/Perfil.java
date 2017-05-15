@@ -57,6 +57,7 @@ public class Perfil extends HttpServlet {
                     request.setAttribute("status", STATUS_ERROR);
                     request.getRequestDispatcher("/error.jsp").forward(request, response);
                 }
+                
             }else if("ModificarPass".equals(request.getParameter("ModificarPass"))){
                String old = (String) request.getAttribute("passOld");
                String usuario = (String) request.getAttribute("nombreUsu");
