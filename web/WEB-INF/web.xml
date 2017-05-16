@@ -21,12 +21,20 @@
         <servlet-class>servlets.AllCodes</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Like</servlet-name>
-        <servlet-class>servlets.Like</servlet-class>
+        <servlet-name>Inicio</servlet-name>
+        <servlet-class>servlets.Inicio</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Dislike</servlet-name>
-        <servlet-class>servlets.Dislike</servlet-class>
+        <servlet-name>Modificar</servlet-name>
+        <servlet-class>servlets.Modificar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarPass</servlet-name>
+        <servlet-class>servlets.ModificarPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllUsers</servlet-name>
+        <servlet-class>servlets.AllUsers</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CrearRespuesta</servlet-name>
@@ -53,12 +61,20 @@
         <url-pattern>/AllCodes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Like</servlet-name>
-        <url-pattern>/Like</url-pattern>
+        <servlet-name>Inicio</servlet-name>
+        <url-pattern>/Inicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Dislike</servlet-name>
-        <url-pattern>/Dislike</url-pattern>
+        <servlet-name>Modificar</servlet-name>
+        <url-pattern>/Modificar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarPass</servlet-name>
+        <url-pattern>/ModificarPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllUsers</servlet-name>
+        <url-pattern>/AllUsers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CrearRespuesta</servlet-name>

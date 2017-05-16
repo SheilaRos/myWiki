@@ -5,15 +5,14 @@
  */
 package servlets;
 
+
 import bean.WikiSession;
-import entities.Follow;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-@WebServlet(name = "Profiles", urlPatterns = {"/Profiles"})
-public class Profiles extends HttpServlet {
- @EJB WikiSession ejb;
+public class AllUsers extends HttpServlet {
+@EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,21 +34,11 @@ public class Profiles extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombreOtroUsuario = (String) request.getParameter("otroUsuario");
-        String usuarioL = (String) request.getParameter("usu");
-        User usu = ejb.obtenerUser(nombreOtroUsuario);
-        if(usu != null){
-                List <Follow> follow = (List) ejb.follow(usu);
-                request.getSession(true).setAttribute("user", usuarioL);
-                request.setAttribute("follow", follow);
-                request.setAttribute("followed", ejb.followed(usu));
-                request.setAttribute("entry", ejb.entryOfFollow(follow));
-             request.setAttribute("usuCompleto", usu);
-             request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-        }else{
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        }
-        
+        response.setContentType("text/html;charset=UTF-8");
+        String nombre = request.getParameter("user");
+        Collection<User> users = ejb.allUsers();
+        request.setAttribute("Users", users);
+        request.getRequestDispatcher("/ALLUsers.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

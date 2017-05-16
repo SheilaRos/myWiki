@@ -13,18 +13,17 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static servlets.Validar.STATUS_ERROR;
 
 /**
  *
  * @author dam
  */
-@WebServlet(name = "Profiles", urlPatterns = {"/Profiles"})
-public class Profiles extends HttpServlet {
- @EJB WikiSession ejb;
+public class Inicio extends HttpServlet {
+@EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,21 +35,22 @@ public class Profiles extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombreOtroUsuario = (String) request.getParameter("otroUsuario");
-        String usuarioL = (String) request.getParameter("usu");
-        User usu = ejb.obtenerUser(nombreOtroUsuario);
-        if(usu != null){
-                List <Follow> follow = (List) ejb.follow(usu);
-                request.getSession(true).setAttribute("user", usuarioL);
+        response.setContentType("text/html;charset=UTF-8");
+        String nombre = request.getParameter("usu");
+        User user = ejb.obtenerUser(nombre);
+            if(user !=null ){
+                List <Follow> follow = (List) ejb.follow(user);
+                request.getSession(true).setAttribute("user", nombre);
+                request.setAttribute("usuCompleto", user);
                 request.setAttribute("follow", follow);
-                request.setAttribute("followed", ejb.followed(usu));
+                request.setAttribute("followed", ejb.followed(user));
                 request.setAttribute("entry", ejb.entryOfFollow(follow));
-             request.setAttribute("usuCompleto", usu);
-             request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-        }else{
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        }
-        
+                request.getRequestDispatcher("/inicio.jsp").forward(request, response);  
+            }else{
+                request.setAttribute("status", STATUS_ERROR);
+                request.getRequestDispatcher("/error.jsp").forward(request, response);
+            }
+          
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
