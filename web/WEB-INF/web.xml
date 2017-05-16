@@ -28,6 +28,10 @@
         <servlet-name>Dislike</servlet-name>
         <servlet-class>servlets.Dislike</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrearRespuesta</servlet-name>
+        <servlet-class>servlets.CrearRespuesta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>Dislike</servlet-name>
         <url-pattern>/Dislike</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrearRespuesta</servlet-name>
+        <url-pattern>/CrearRespuesta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
