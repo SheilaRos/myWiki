@@ -36,6 +36,10 @@
         <servlet-name>AllUsers</servlet-name>
         <servlet-class>servlets.AllUsers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Follow</servlet-name>
+        <servlet-class>servlets.Follows</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
         <url-pattern>/LikeCodes</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>AllUsers</servlet-name>
         <url-pattern>/AllUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Follow</servlet-name>
+        <url-pattern>/Follow</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

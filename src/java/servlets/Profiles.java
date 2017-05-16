@@ -41,10 +41,10 @@ public class Profiles extends HttpServlet {
         User usu = ejb.obtenerUser(nombreOtroUsuario);
         if(usu != null){
                 List <Follow> follow = (List) ejb.follow(usu);
-                request.getSession(true).setAttribute("user", usuarioL);
                 request.setAttribute("follow", follow);
                 request.setAttribute("followed", ejb.followed(usu));
                 request.setAttribute("entry", ejb.entryOfFollow(follow));
+                request.setAttribute("estryUser", ejb.selectUserCodes(usu.getNameUsu()));
              request.setAttribute("usuCompleto", usu);
              request.getRequestDispatcher("/inicio.jsp").forward(request, response);
         }else{

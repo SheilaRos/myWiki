@@ -14,10 +14,19 @@
     </head>
     <body>
         <%
+         String user = (String) session.getAttribute("user");
         User datos = (User) request.getAttribute("usuario");
-        if (datos != null){
+        if (datos != null && user != null){
+            
         %>
         <h1>Perfil</h1>
+        <form action="Inicio" method="POST"><input type="hidden" name="usu" value="<%=user%>"><input type="submit" value="Inicio"></form>
+            <form action="AllUsers" method="POST"><input type="hidden" name="user" value="<%=user%>"><input type="submit" value="All users"></form>
+            <form action="Perfil" method="POST"><input type="hidden" name="user" value="<%=user%>"><input type="submit" value="Perfil"></form>
+            <form action="libreria.jsp" method="POST"><input type="submit" value="Subir codigos"></form>
+            <form action="AllCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
+            <form action="LikeCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
+            <form action="logOut" method="POST"><input type="submit" value="Log Out"></form>
         <form action="Modificar" method="POST">
             <p>Nombre: <input type="text" name="name" value="<%= datos.getName()%>"></p>
             <input type="hidden" name="nombreUsu" value="<%=datos.getNameUsu()%>"/>
@@ -38,7 +47,7 @@
         </form>
         <%
         }else{
-           request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+           request.getRequestDispatcher("/index.jsp").forward(request, response);
          }
         %>
     </body>

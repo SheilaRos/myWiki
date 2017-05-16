@@ -181,6 +181,28 @@ public class WikiSession {
         }  
         return entry;
     }
+    public boolean insertFollow(Follow f){
+       EntityManager em = emf.createEntityManager();
+       Follow follow = em.find(Follow.class, f.getFollowPK());
+       boolean ok = false;
+       if(follow == null){
+           em.persist(follow);
+           ok = true;
+       }
+         em.close();
+        return ok;
+    }
+    public boolean deleteFollow(Follow f){
+        EntityManager em = emf.createEntityManager();
+       Follow follow = em.find(Follow.class, f.getFollowPK());
+        boolean ok = false;
+        if (follow != null) {
+            em.remove(follow);
+            ok = true;
+        } 
+        em.close();
+        return ok;
+    }
     public boolean insertCode(Entry e) {
             EntityManager em = emf.createEntityManager();
             em.persist(e);

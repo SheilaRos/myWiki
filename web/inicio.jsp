@@ -86,20 +86,37 @@
                   <%
                   }
                 %>
-                <h1>Novedades</h1>
+                <h1>Codigos</h1>
                 <%
-                 if(!entry.isEmpty()){
-                    for(Entry e : entry){
+                  if(user.equals(usu.getNameUsu())){
+                      List<Entry> entries = (List) request.getAttribute("entryUser");
+                      if(!entries.isEmpty()){
+                          for(Entry en: entry){
+                              %>
+                              <form action="codeProfile" method="POST"><input type="submit" name="unaEntry" value="<%=en.getId()%>"</form>
+                              <p><%=en.getLanguage()%></p>
+                              <p><%=en.getCode()%></p>
+                            <%
+                          }
+                      }else{
+                          %>
+                          <p>No hay codigos.</p>
+                        <%
+                      }
+                  }else{  
+                    if(!entry.isEmpty()){
+                       for(Entry e : entry){
+                       %>
+                       <form action="codeProfile" method="POST"><input type="hidden" name="id" value="<%=e.getId()%>"><input type="submit" name="unaEntry" value="<%=e.getTitle()%>"></form>
+                       <p><%=e.getLanguage()%></p>
+                       <p><%=e.getCode()%></p>
+                       <%  
+                       }  
+                    }else{
                     %>
-                    <form action="Entry" method="POST"><input type="hidden" name="usu" value="<%=user%>"><input type="submit" name="unaEntry" value="<%=e.getTitle()%>"></form>
-                    <p><%=e.getLanguage()%></p>
-                    <p><%=e.getCode()%></p>
-                    <%  
-                    }  
-                 }else{
-                 %>
-                   <p>No hay novedades.</p> 
-                 <%
+                      <p>No hay novedades.</p> 
+                    <%
+                   }
                 }
             }
             else{
