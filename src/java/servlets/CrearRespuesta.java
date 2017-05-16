@@ -6,11 +6,12 @@
 package servlets;
 
 import bean.WikiSession;
+import entities.Answer;
 import entities.Entry;
+import entities.User;
 import entities.VoteEntry;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dam
  */
-public class Like extends HttpServlet {
+public class CrearRespuesta extends HttpServlet {
 @EJB WikiSession ejb;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +36,17 @@ public class Like extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            /* TODO output your page here. You may use following sample code. */
         String nombre = request.getParameter("user");
+        User usuario = ejb.obtenerUser(nombre);
         String asd = request.getParameter("id");
         int id = Integer.parseInt(asd);
-        VoteEntry voteEntry = new VoteEntry(nombre, id);
-        ejb.insertarVote(voteEntry);
+        Entry entry = ejb.selectEntry(id);
+        String ans = request.getParameter("Respuesta");
+        Answer answer = new Answer();
+        answer.setUsu(usuario);
+        answer.setIdEntry(entry);
+        answer.setTextAnswer(ans);        
+        ejb.insertAnswer(answer);
         request.getRequestDispatcher("ShowCode").forward(request, response); 
     }
 

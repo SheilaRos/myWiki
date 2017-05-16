@@ -39,6 +39,8 @@
     <servlet>
         <servlet-name>Follow</servlet-name>
         <servlet-class>servlets.Follows</servlet-class>
+        <servlet-name>CrearRespuesta</servlet-name>
+        <servlet-class>servlets.CrearRespuesta</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>

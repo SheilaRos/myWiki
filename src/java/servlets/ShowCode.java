@@ -44,9 +44,7 @@ public class ShowCode extends HttpServlet {
         int id = Integer.parseInt(asd);        
         Entry entry = ejb.selectEntry(id);
         Collection <Answer> answers = ejb.selectAnswer(entry);
-        VoteEntry voteEntry = new VoteEntry();
-        voteEntry.setEntry(entry);
-        voteEntry.setUser(usuario);
+        VoteEntry voteEntry = new VoteEntry(nombre, id);
         boolean existeVote = ejb.existeVote(voteEntry);
         request.setAttribute("vote", existeVote);
         request.setAttribute("entry", entry);

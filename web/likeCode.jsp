@@ -18,6 +18,7 @@
         <h1>Codigos que me gustan</h1>        
         <% 
         Collection<Entry>codes = (Collection<Entry>) request.getAttribute("entries");
+        String user = (String) session.getAttribute("user");
         if (codes.isEmpty() == false){
         for (Entry entry : codes) {
             %>

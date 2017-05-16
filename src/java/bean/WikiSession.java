@@ -150,7 +150,10 @@ public class WikiSession {
     }
     public Collection<Entry> selectLikeCodes(String nombreUsu){
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Select e from Entry e where e.id in (Select a.id_entry from (clase likes entry) a where a.usu = '" + nombreUsu + "')").getResultList();
+        Query q = em.createQuery("Select e from Entry e where e.id in (Select a.id_entry from (clase likes entry) where a.usu = :nombre)");
+        q.setParameter("nombre", nombreUsu);
+        return q.getResultList();
+//        return em.createNamedQuery("Select e from Entry e where e.id in (Select a.id_entry from (clase likes entry) a where a.usu = '" + nombreUsu + "')").getResultList();
     }
     public Collection<Follow> follow(User user1){
         EntityManager em = emf.createEntityManager();
@@ -204,6 +207,12 @@ public class WikiSession {
         return ok;
     }
     public boolean insertCode(Entry e) {
+            EntityManager em = emf.createEntityManager();
+            em.persist(e);
+            em.close();
+            return true;
+    }
+    public boolean insertAnswer(Answer e) {
             EntityManager em = emf.createEntityManager();
             em.persist(e);
             em.close();

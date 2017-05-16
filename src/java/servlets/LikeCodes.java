@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package servlets;
+
 import bean.WikiSession;
 import entities.Entry;
 import entities.User;
+import entities.VoteEntry;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,7 +27,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "LikeCodes", urlPatterns = {"/LikeCodes"})
 public class LikeCodes extends HttpServlet {
-@EJB WikiSession ejb;
+
+    @EJB
+    WikiSession ejb;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +45,12 @@ public class LikeCodes extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nombre = request.getParameter("user");
         System.out.println(nombre);
-        Collection<Entry> entries = ejb.selectLikeCodes(nombre);
+//        Collection<Entry> entries = ejb.selectLikeCodes(nombre);
+        User u = ejb.obtenerUser(nombre);
+        List<Entry> entries = new ArrayList<Entry>();
+        for (VoteEntry v : u.getVoteEntryCollection()) {
+            entries.add(v.getEntry());
+        }
         request.setAttribute("entries", entries);
         request.getRequestDispatcher("/likeCode.jsp").forward(request, response);
     }
