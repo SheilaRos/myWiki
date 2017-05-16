@@ -81,6 +81,8 @@
     <servlet-mapping>
         <servlet-name>Follow</servlet-name>
         <url-pattern>/Follow</url-pattern>
+        <servlet-name>CrearRespuesta</servlet-name>
+        <url-pattern>/CrearRespuesta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
