@@ -23,7 +23,7 @@
             <form action="AllCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
             <form action="LikeCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
             <form action="logOut" method="POST"><input type="submit" value="Log Out"></form>
-            %>        
+            
         <h1>Mis codigos</h1>
         <form method="post" action="UploadFile" enctype="multipart/form-data">
             Sube un archivo con tu codigo!</br></br>

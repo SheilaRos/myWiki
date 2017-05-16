@@ -38,9 +38,8 @@ public class ShowCode extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String asd = request.getParameter("id");
-        System.out.println(asd);
         String nombre = request.getParameter("user");
-        User usuario = ejb.obtenerUser(nombre);
+        //User usuario = ejb.obtenerUser(nombre);
         int id = Integer.parseInt(asd);        
         Entry entry = ejb.selectEntry(id);
         Collection <Answer> answers = ejb.selectAnswer(entry);

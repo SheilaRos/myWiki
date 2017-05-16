@@ -39,6 +39,8 @@
     <servlet>
         <servlet-name>Follow</servlet-name>
         <servlet-class>servlets.Follows</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CrearRespuesta</servlet-name>
         <servlet-class>servlets.CrearRespuesta</servlet-class>
     </servlet>
@@ -81,6 +83,8 @@
     <servlet-mapping>
         <servlet-name>Follow</servlet-name>
         <url-pattern>/Follow</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CrearRespuesta</servlet-name>
         <url-pattern>/CrearRespuesta</url-pattern>
     </servlet-mapping>

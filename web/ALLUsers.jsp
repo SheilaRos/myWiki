@@ -14,10 +14,9 @@
         <title>My Wiki</title>
     </head>
     <body>
-        <h1>All Users</h1>
         <%
                 String user = (String) session.getAttribute("user");
-                List<User> users = (List) request.getAttribute("users");
+                List<User> users = (List) request.getAttribute("Users");
           if(user != null){
               
         %>
@@ -28,7 +27,8 @@
             <form action="AllCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="All codes"></form>
             <form action="LikeCodes" method="POST"><input type="hidden" name="user" value="<%=user %>"><input type="submit" value="Codigos que me gustan"></form>
             <form action="logOut" method="POST"><input type="submit" value="Log Out"></form>
-        <%
+            <h1>Usuarios</h1>
+            <%
             if( users.isEmpty()){
                 %>
             <p>No hay usuarios registrados.</p>

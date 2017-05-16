@@ -28,6 +28,10 @@
                 List <Follow> followed = (List<Follow>) request.getAttribute("followed");
                 List <Entry> entry = (List<Entry>) request.getAttribute("entry");
                 if (user != null && usu != null){
+                    %>
+                    
+                    <p>Bienvenido <%=user%></p>
+                    <%
                     if(!user.equals(usu.getNameUsu())){
                         for(Follow f1 : followed){
                             if(f1.getUser().getNameUsu().equals(user)){
@@ -88,7 +92,7 @@
                 %>
                 <h1>Codigos</h1>
                 <%
-                  if(user.equals(usu.getNameUsu())){
+                  if(!user.equals(usu.getNameUsu())){
                       List<Entry> entries = (List) request.getAttribute("entryUser");
                       if(!entries.isEmpty()){
                           for(Entry en: entry){

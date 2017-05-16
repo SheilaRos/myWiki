@@ -21,6 +21,7 @@
             Entry entry = (Entry) request.getAttribute("entry");
             List<Answer> answers = (List<Answer>) request.getAttribute("answers");
             Boolean existeVote = (Boolean) request.getAttribute("vote");
+            if(user != null){
         %>
         <h1>Code Profile</h1>
         <div class="code">
@@ -48,5 +49,10 @@
                 <input type="submit" value="Responder">
             </form>
         </div>
+            <% 
+            }else{
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+              }
+            %>
     </body>
 </html>
