@@ -36,13 +36,22 @@
         <servlet-name>AllUsers</servlet-name>
         <servlet-class>servlets.AllUsers</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>Follow</servlet-name>
-        <servlet-class>servlets.Follows</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>CrearRespuesta</servlet-name>
         <servlet-class>servlets.CrearRespuesta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Like</servlet-name>
+        <servlet-class>servlets.Like</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dislike</servlet-name>
+        <servlet-class>servlets.Dislike</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Follows</servlet-name>
+        <servlet-class>servlets.Follows</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LikeCodes</servlet-name>
@@ -80,13 +89,22 @@
         <servlet-name>AllUsers</servlet-name>
         <url-pattern>/AllUsers</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Follow</servlet-name>
-        <url-pattern>/Follow</url-pattern>
-        </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>CrearRespuesta</servlet-name>
         <url-pattern>/CrearRespuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Like</servlet-name>
+        <url-pattern>/Like</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dislike</servlet-name>
+        <url-pattern>/Dislike</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Follows</servlet-name>
+        <url-pattern>/Follows</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

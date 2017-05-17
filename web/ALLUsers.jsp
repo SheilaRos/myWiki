@@ -37,7 +37,7 @@
                 for (User u : users){
                 %>
                 <div>
-                <form action="Profiles" method="POST"><input type="submit" name="" value="<%=u.getNameUsu()%>"></form>
+                <form action="Profiles" method="POST"><input type="submit" name="otroUsuario" value="<%=u.getNameUsu()%>"></form>
                 </div>
                 <%
                 }

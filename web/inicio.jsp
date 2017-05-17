@@ -37,14 +37,14 @@
                             if(f1.getUser().getNameUsu().equals(user)){
                                 dis = true;
                                 %>
-                                <form action="Follow" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
+                                <form action="Follows" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
                                     <input type="hidden" name="usuarioUF" value="<%=user%>"><input type="submit" value="Unfollow" name="Unfollow"></form>
                                 <%
                             }
                         }
                          if (!dis){
                          %>
-                            <form action="Follow" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
+                            <form action="Follows" method="POST"><input type="hidden" name="usuarioD" value="<%=usu.getNameUsu()%>">
                             <input type="hidden" name="usuarioUF" value="<%=user%>"><input type="submit" value="Follow" name="Follow"></form>
                             <%
                         }   
@@ -93,11 +93,11 @@
                 <h1>Codigos</h1>
                 <%
                   if(!user.equals(usu.getNameUsu())){
-                      List<Entry> entries = (List) request.getAttribute("entryUser");
+                      List<Entry> entries = (List<Entry>) request.getAttribute("entryUser");                   
                       if(!entries.isEmpty()){
-                          for(Entry en: entry){
+                          for(Entry en: entries){
                               %>
-                              <form action="codeProfile" method="POST"><input type="submit" name="unaEntry" value="<%=en.getId()%>"</form>
+                              <form action="codeProfile" method="POST"><input type="hidden" name="id" value="<%=en.getId()%>"><input type="submit" name="unaEntry" value="<%=en.getTitle()%>"</form>
                               <p><%=en.getLanguage()%></p>
                               <p><%=en.getCode()%></p>
                             <%
@@ -107,6 +107,7 @@
                           <p>No hay codigos.</p>
                         <%
                       }
+
                   }else{  
                     if(!entry.isEmpty()){
                        for(Entry e : entry){
@@ -122,8 +123,7 @@
                     <%
                    }
                 }
-            }
-            else{
+            }  else{
                    request.getRequestDispatcher("/index.jsp").forward(request, response);
                 }
              %>    

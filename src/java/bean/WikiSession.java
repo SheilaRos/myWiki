@@ -189,10 +189,10 @@ public class WikiSession {
        Follow follow = em.find(Follow.class, f.getFollowPK());
        boolean ok = false;
        if(follow == null){
-           em.persist(follow);
+           em.persist(f);
            ok = true;
        }
-         em.close();
+        em.close();
         return ok;
     }
     public boolean deleteFollow(Follow f){

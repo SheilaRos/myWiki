@@ -36,11 +36,17 @@ public class Inicio extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombre = request.getParameter("usu");
-        User user = ejb.obtenerUser(nombre);
+        String nombre = (String) request.getAttribute("usu");
+        String nombre2 =  request.getParameter("usu");
+        User user;
+        
+        if (nombre == null){
+            user = ejb.obtenerUser(nombre2);
+        }else{
+            user = ejb.obtenerUser(nombre);
+        }
             if(user !=null ){
                 List <Follow> follow = (List) ejb.follow(user);
-                request.getSession(true).setAttribute("user", nombre);
                 request.setAttribute("usuCompleto", user);
                 request.setAttribute("follow", follow);
                 request.setAttribute("followed", ejb.followed(user));

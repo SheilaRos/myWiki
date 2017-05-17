@@ -59,7 +59,9 @@ public class UploadFile extends HttpServlet {
             System.out.println();
             // Crea el directorio si no existe
             File uploadDir = new File(path);
-            
+            if(!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
             try {
                 // analiza el contenido de la solicitud para extraer datos de archivo
                 List<FileItem> formItems = upload.parseRequest(request);

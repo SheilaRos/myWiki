@@ -36,28 +36,20 @@ public class Follows extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usuFollow = (String) request.getAttribute("usuarioD");
-        String usuFollowed = (String) request.getAttribute("usuarioUF");
-        User usuFW = ejb.obtenerUser(usuFollow);
-        User usuFD = ejb.obtenerUser(usuFollowed);
-         Follow f = new Follow();
-        f.setUser(usuFD);
-        f.setUser1(usuFW);
-        if("Follow".equals(request.getAttribute("Follow"))){
+        String usuFollow = (String) request.getParameter("usuarioD");
+        String usuFollowed = (String) request.getParameter("usuarioUF");
+         Follow f = new Follow(usuFollowed, usuFollow);
+
+        if("Follow".equals(request.getParameter("Follow"))){
            if(ejb.insertFollow(f)){
-                List <Follow> follow = (List) ejb.follow(usuFD);
-                request.setAttribute("usuCompleto", usuFD);
-                request.setAttribute("follow", follow);
-                request.setAttribute("followed", ejb.followed(usuFD));
-                request.setAttribute("entry", ejb.entryOfFollow(follow));
-                request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+             request.getRequestDispatcher("/index.jsp").forward(request, response);
            }else{
                request.setAttribute("status", STATUS_ERROR);
                    request.getRequestDispatcher("/error.jsp").forward(request, response);
            }
         }else{
             if(ejb.deleteFollow(f)){
-                
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }else{
                 request.setAttribute("status", STATUS_ERROR);
                 request.getRequestDispatcher("/error.jsp").forward(request, response);

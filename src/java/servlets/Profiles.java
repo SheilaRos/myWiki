@@ -44,7 +44,7 @@ public class Profiles extends HttpServlet {
                 request.setAttribute("follow", follow);
                 request.setAttribute("followed", ejb.followed(usu));
                 request.setAttribute("entry", ejb.entryOfFollow(follow));
-                request.setAttribute("estryUser", ejb.selectUserCodes(usu.getNameUsu()));
+                request.setAttribute("entryUser", ejb.selectUserCodes(usu.getNameUsu()));
              request.setAttribute("usuCompleto", usu);
              request.getRequestDispatcher("/inicio.jsp").forward(request, response);
         }else{
